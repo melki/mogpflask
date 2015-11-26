@@ -24,6 +24,7 @@ def createGrids(rMn, rMx, oMn, oMx, nbGrille):
     for index in range(int(math.floor((rMx-rMn)/10))+1):
         
         o = oMn + index*oIncr*10
+        print (o, oIncr)
         n = rMn + index*10
         
         

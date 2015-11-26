@@ -56,51 +56,7 @@ def getInfos(entree,numeroLigne):
     
     return m,n,depart,arrivee,tableEntree,numeroLigne,go
  
-def generer_grille(nbGrille,o):
-
-    #nbGrille=input("Entrez le nombre de grille a generer : ")
-    #n = m = o = input("entrez le nombre de lignes par grille : ")
-    n = m = o 
-
-    grilles = np.zeros((nbGrille,n,m))
-    obsPos = [[(-1,-1) for x in range(o)] for x in range(nbGrille)]
-    dpt = (7,7)
-    arr = (2,7)
-    
-    for i in range(nbGrille):
-        obsPos.append(dpt)
-        obsPos.append(arr)     
-            
-        for j in range(m):
-            obsPos[i][j]=(-1,-1)
-
-    for i in range(nbGrille):
    
-        for j in range(o):
-            pos = (-1,-1)
-            while pos in obsPos[i]:
-                pos = (posX,posY) = int(math.floor(n * rd.random())),int(math.floor(n * rd.random()))
-            obsPos[i][j]=pos
-            
-            grilles[i][posX][posY]=1
-    j=0
-
-    for i in grilles:
-        j = j+1    
-
-        name = "grilles/g"+str(int(m))+"X"+str(int(m))+"#"+str(j)+".txt"
-        f = open(name,"w")
-        f.write(str(m)+" "+str(m)+'\n')
-        for x in i:
-            for n in x:
-                f.write(str(int(n))+" ")
-            f.write('\n')
-            
-        f.write('7 7 2 7 sud\n') # rajouter coords depart + arriveee : verifier qu'il existe un chemin
-        f.close()
-    print('fichiers crees !')
-    return name
-    
 def createNodes(G,m,n,tableEntree):
     #creation du tableau correspondant au graphe
     seq = np.zeros((m+1,n+1,4))
@@ -328,6 +284,8 @@ def main(entree):
         timeElapsed = time.time() - start_time
         t = math.floor(timeElapsed*1000)/1000
         f = entree.split("_")
-        o = f[3]
+        
+        with open("static/logs.csv", "a") as myfile:
+            myfile.write(str(m)+","+str(o)+","+str(t)+"\n")
         sol.append({"sol":a,"dep":str(depart),"arr":str(arrivee),"num":numeroGraph,"grid":entree,"time":t,'rows':m,"obs":o})
     return sol
