@@ -13,3 +13,4 @@ Scripts/*
 share/*
 Include/*
 /grille*
+*.pyc
