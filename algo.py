@@ -9,6 +9,7 @@ import networkx as nx
 # import matplotlib.pyplot as plt
 from collections import deque as dq
 
+nbObs = []
  
 def createGraph():
     #creation du graphe vide
@@ -26,11 +27,16 @@ def getInfos(entree,numeroLigne):
     #creation du tableau
     tableEntree= np.zeros((m,n))
  
+    #compter les obs pour les logs
+    o = 0
+
     #lecture du fichier source : 1:obstacle, 0:rien
     for i in range(m):
         for j in range(n):
             tableEntree[i][j] = a[i+1+numeroLigne].split(' ')[j]
- 
+            if tableEntree[i][j]==1:
+                o+=1
+    nbObs.append(o)            
     #recuperation de l'orientation initiale ainsi que la position de depart et d'arrivee.
     print m+1+numeroLigne
     infos = a[m+1+numeroLigne].split(' ')
@@ -284,7 +290,7 @@ def main(entree):
         timeElapsed = time.time() - start_time
         t = math.floor(timeElapsed*1000)/1000
         f = entree.split("_")
-        
+        o = nbObs[-1]
         with open("static/logs.csv", "a") as myfile:
             myfile.write(str(m)+","+str(o)+","+str(t)+"\n")
         sol.append({"sol":a,"dep":str(depart),"arr":str(arrivee),"num":numeroGraph,"grid":entree,"time":t,'rows':m,"obs":o})
