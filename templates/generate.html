@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='d3.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='normalize.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='skeleton.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Generate Grids &amp; pick sets</title>
+
+    
+    
+
+</head>
+<body>
+	<div class="container">
+    	<div class="row">
+     		<div class="docs-section" style="margin-top: 5%">
+    			<div class="12 columns">
+    				<h3>MOGPL project Traoré/de Toldi</h3>
+     			</div>     			
+     		</div>
+   		</div>
+    	<div class="row">
+     		<div class="docs-section" style="margin-top: 10%">
+    			<div class="four columns">
+					<h2>List of Grids</h2>
+					<p>Click on one set to resolve it, or if you want, you can create more grids</p>
+					<table class="u-full-width" >
+					  <thead>
+					    <tr>
+					      <th>Min Rows</th>
+					      <th>Max Rows</th>
+					      <th>Min Obs</th>
+					      <th>Max Obs</th>
+					      <th>Quantity</th>
+					    </tr>
+					  </thead>
+					  <tbody id="listG">
+					  	
+					    {% for i in grids %}
+					    <tr id='{{ i[5] }}'>
+					    	<td>{{ i[0] }}</td>
+					    	<td>{{ i[1] }}</td>
+					    	<td>{{ i[2] }}</td>
+					    	<td>{{ i[3] }}</td>
+					    	<td>{{ i[4] }}</td>
+					    	
+					    </tr>
+					    
+					    {% endfor %}
+					  </tbody>
+					</table>
+				    <button id="delete">Delete all</button>
+					</br>
+					<h2>Generate Grids</h2>
+					<p>If you chose min = 10, max = 50 and number of grids = 5 it will generate 5 grids 10*10, 5 grids 20*20 etc... </p>
+					<p>Same concept with the obstacles.</p>
+    				<form action="{{ url_for('generate') }}" method="POST" >
+				    	<label for="rows">Numbers of Rows &amp; Collumns (Min, Max) : </label>
+				    	<input type="number" name="rowsMin" value="10" size="20">
+				    	<input type="number" name="rowsMax" value="50" size="20">
+				    	
+				    	<label for="obs">Numbers of Obstacles (Min, Max) : </label>
+				    	<input type="number" name="obsMin" value="10" size="20">
+				    	<input type="number" name="obsMax" value="50" size="20">
+				    	
+				      	<label for="nbGrid">Numbers of Grids : </label><input type="number" name="nbGrid" value="5" size="20"></br>
+				    	<input type="submit" value="submit">
+				    </form>
+				    {% if text %}
+				   		<p>{{ text }}</p>
+				    {% endif %}
+					</div>
+    			<div class="four columns">
+    				<h2>Resolution</h2>
+					<table class="u-full-width" >
+					  <thead>
+					    <tr>
+					      <th>#</th>
+					      <th>Rows</th>
+					      <th>Obstacles</th>
+					      <th>Solution</th>
+					      <th>Time</th>
+					    </tr>
+					  </thead>
+					  <tbody id="resolG">
+					  	
+					   
+					  </tbody>
+					</table>
+
+    			</div>
+    			<div class="four columns">
+			
+				<h2>Visualisation</h2>
+				<div id="viz">
+					
+				</div>
+		</div>
+	    		
+			</div>
+			</div>
+	</div>
+
+
+</body>
+</html>

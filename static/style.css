@@ -1,0 +1,45 @@
+html, body
+{
+	height: 100%;
+	width: 100%;
+	font-family: arial;
+}
+#listG tr:hover
+{
+	cursor:pointer;
+	background-color: lightblue;
+}
+#resolG tr:hover
+{
+	cursor:pointer;
+	background-color: lightgreen;
+}
+  .line {
+            stroke-width: 1;
+            stroke: lightblue;
+        }
+  .square {
+            stroke-width: 0;
+            fill: lightgreen;
+        }
+        .depart
+        {
+        	stroke-width: 0;
+            fill: lightblue;	
+        }        
+        .arrivee
+        {
+        	stroke-width: 0;
+            fill: red;	
+        }
+
+       .path
+       {
+       	    stroke-width: 2;
+       	    stroke: red;
+       }
+
+    #viz
+    {
+      position: fixed;
+    }
