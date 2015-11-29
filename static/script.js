@@ -284,13 +284,26 @@ $(document).ready(function() {
 			{'obs':40,'time':0},
 			{'obs':50,'time':0}
 			];
+			data1 = [
+			{'obs':10,'time':0},
+			{'obs':20,'time':0},
+			{'obs':30,'time':0},
+			{'obs':40,'time':0},
+			{'obs':50,'time':0}
+			];
 			indexes = [0,0,0,0,0];
+			indexes1 = [0,0,0,0,0];
 			csv.forEach(function(d,i){
 				
 				if(d.nbLignes == d.nbObstacles && d.nbLignes%10 == 0)
 				{
 					data[(d.nbLignes/10)-1]['time']+= +d['time'];
 					indexes[(d.nbLignes/10)-1]+=1;
+				}
+				if(d.nbLignes == 20 && d.nbObstacles%10 == 0)
+				{
+					data1[(d.nbObstacles/10)-1]['time']+= +d['time'];
+					indexes1[(d.nbObstacles/10)-1]+=1;
 				}
 				
 			});
@@ -299,9 +312,12 @@ $(document).ready(function() {
 			data.forEach(function(d,i){
 					data[i]['time'] = data[i].time/indexes[i];
 			});
-			
+			data1.forEach(function(d,i){
+					data1[i]['time'] = data1[i].time/indexes1[i];
+			});
+			console.log(data1);
 
-			console.log(data);
+			
 
 		var x = d3.scale.linear().domain([5, 55]).range([0, w]);
 		var y = d3.scale.linear().domain([0, .5]).range([h, 0]);
@@ -332,6 +348,35 @@ $(document).ready(function() {
 			      .attr("transform", "translate(-25,0)")
 			      .call(yAxisLeft);
 			graph.append("svg:path").attr("class","chart").attr("d", line(data));
+		var x1 = d3.scale.linear().domain([5, 55]).range([0, w]);
+		var y1 = d3.scale.linear().domain([0, .5]).range([h, 0]);
+		var line1 = d3.svg.line()
+			.x(function(d,i) { 
+				return x1(d.obs); 
+			})
+			.y(function(d) { 
+				return y1(d['time']); 
+			})
+
+			var graph1 = d3.select("#graph1").append("svg:svg")
+			      .attr("width", w + m[1] + m[3])
+			      .attr("height", h + m[0] + m[2])
+			    .append("svg:g")
+			      .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+			var xAxis1 = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+			graph1.append("svg:g")
+			      .attr("class", "x axis")
+			      .attr("transform", "translate(0," + h + ")")
+			      .call(xAxis);
+
+
+			var yAxisLeft1 = d3.svg.axis().scale(y).orient("left");
+			graph1.append("svg:g")
+			      .attr("class", "y axis")
+			      .attr("transform", "translate(-25,0)")
+			      .call(yAxisLeft);
+			graph1.append("svg:path").attr("class","chart").attr("d", line1(data1));
 			
 		})
 
