@@ -173,13 +173,6 @@ def visualize():
     nx.draw(G,pos=pos,labels=labels,font_size=10)
     # plt.show()
 
-def getPath(G,depart,arrivee):
-    if(nx.has_path(G,source=depart,target=arrivee)):
-        a = nx.shortest_path(G,source=depart,target=arrivee)
-        l = list(a)
-    else:
-        l=False
-    return l
 
 def bfs(g,s):
     
