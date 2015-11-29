@@ -271,5 +271,69 @@ $(document).ready(function() {
 		}
 
 	}
+
+		var m = [20, 20, 20, 65]; // margins
+		var w = 500 - m[1] - m[3]; // width
+		var h = 300 - m[0] - m[2]; // height
+		
+		d3.csv("static/logs.csv",function(error,csv){
+			data = [
+			{'obs':10,'time':0},
+			{'obs':20,'time':0},
+			{'obs':30,'time':0},
+			{'obs':40,'time':0},
+			{'obs':50,'time':0}
+			];
+			indexes = [0,0,0,0,0];
+			csv.forEach(function(d,i){
+				
+				if(d.nbLignes == d.nbObstacles && d.nbLignes%10 == 0)
+				{
+					data[(d.nbLignes/10)-1]['time']+= +d['time'];
+					indexes[(d.nbLignes/10)-1]+=1;
+				}
+				
+			});
+
+			
+			data.forEach(function(d,i){
+					data[i]['time'] = data[i].time/indexes[i];
+			});
+			
+
+			console.log(data);
+
+		var x = d3.scale.linear().domain([5, 55]).range([0, w]);
+		var y = d3.scale.linear().domain([0, .5]).range([h, 0]);
+		var line = d3.svg.line()
+			.x(function(d,i) { 
+				return x(d.obs); 
+			})
+			.y(function(d) { 
+				return y(d['time']); 
+			})
+
+			var graph = d3.select("#graph").append("svg:svg")
+			      .attr("width", w + m[1] + m[3])
+			      .attr("height", h + m[0] + m[2])
+			    .append("svg:g")
+			      .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+			var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+			graph.append("svg:g")
+			      .attr("class", "x axis")
+			      .attr("transform", "translate(0," + h + ")")
+			      .call(xAxis);
+
+
+			var yAxisLeft = d3.svg.axis().scale(y).orient("left");
+			graph.append("svg:g")
+			      .attr("class", "y axis")
+			      .attr("transform", "translate(-25,0)")
+			      .call(yAxisLeft);
+			graph.append("svg:path").attr("class","chart").attr("d", line(data));
+			
+		})
+
 	
 });
