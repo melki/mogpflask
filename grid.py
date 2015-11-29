@@ -21,6 +21,7 @@ def createGrids(rMn, rMx, oMn, oMx, nbGrille):
         f = "grilles_"+str(int(rMn))+"_"+str(int(rMx))+"_"+str(oMn)+"_"+str(oMx)+"_"+str(nbGrille)+"_#"+str(k)+".txt"
     f=open(f,"w")
     
+    
     for index in range(int(math.floor((rMx-rMn)/10))+1):
         
         o = oMn + index*oIncr*10

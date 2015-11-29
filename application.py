@@ -41,6 +41,7 @@ def deleteAllTheGrids():
 
 
 
+@application.route("/", methods=['GET','POST'])
 @application.route("/generate", methods=['GET','POST'])
 def generate():
 	

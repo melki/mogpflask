@@ -13,6 +13,7 @@ $(document).ready(function() {
 			      if(result)
 			      {
 			      	console.log('Graphs deleted');
+			      	$("#listG").html("")
 			      }  
 			      
 			    }
@@ -21,6 +22,7 @@ $(document).ready(function() {
 		});
 	var listOfsol = [];
 	$("#listG tr").click(function(){
+		$("#resolG").html("<img src='static/load.gif' />")
 		console.log('Go with the set number : '+this.id);
 		 $.ajax({
 		    type : "POST",
