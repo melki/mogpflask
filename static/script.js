@@ -272,7 +272,7 @@ $(document).ready(function() {
 
 	}
 
-		var m = [20, 20, 20, 65]; // margins
+		var m = [20, 20, 40, 65]; // margins
 		var w = 500 - m[1] - m[3]; // width
 		var h = 300 - m[0] - m[2]; // height
 		
@@ -300,7 +300,7 @@ $(document).ready(function() {
 					data[(d.nbLignes/10)-1]['time']+= +d['time'];
 					indexes[(d.nbLignes/10)-1]+=1;
 				}
-				if(d.nbLignes == 20 && d.nbObstacles%10 == 0)
+				if(d.nbLignes == 20 && d.nbObstacles%10 == 0 && d.nbObstacles <= 50)
 				{
 					data1[(d.nbObstacles/10)-1]['time']+= +d['time'];
 					indexes1[(d.nbObstacles/10)-1]+=1;
@@ -339,14 +339,28 @@ $(document).ready(function() {
 			graph.append("svg:g")
 			      .attr("class", "x axis")
 			      .attr("transform", "translate(0," + h + ")")
-			      .call(xAxis);
+			      .call(xAxis)
+					.append("text")
+		            .attr("x", w)
+		            .attr("y", 20)
+		            .attr("dy", ".71em")
+		            .style("text-anchor", "end")
+		            .text("Nombre de lignes");
+
 
 
 			var yAxisLeft = d3.svg.axis().scale(y).orient("left");
 			graph.append("svg:g")
 			      .attr("class", "y axis")
 			      .attr("transform", "translate(-25,0)")
-			      .call(yAxisLeft);
+			      .call(yAxisLeft)
+			      .append("text")
+		            .attr("transform", "rotate(-90)")
+		            .attr("y", 6)
+		            .attr("dy", ".71em")
+		            .style("text-anchor", "end")
+		            .text("Temps (s)");
+
 			graph.append("svg:path").attr("class","chart").attr("d", line(data));
 		var x1 = d3.scale.linear().domain([5, 55]).range([0, w]);
 		var y1 = d3.scale.linear().domain([0, .5]).range([h, 0]);
@@ -368,14 +382,25 @@ $(document).ready(function() {
 			graph1.append("svg:g")
 			      .attr("class", "x axis")
 			      .attr("transform", "translate(0," + h + ")")
-			      .call(xAxis);
-
+			      .call(xAxis)
+			      .append("text")
+		            .attr("x", w)
+		            .attr("y", 20)
+		            .attr("dy", ".71em")
+		            .style("text-anchor", "end")
+		            .text("Nombre d'obstacles");
 
 			var yAxisLeft1 = d3.svg.axis().scale(y).orient("left");
 			graph1.append("svg:g")
 			      .attr("class", "y axis")
 			      .attr("transform", "translate(-25,0)")
-			      .call(yAxisLeft);
+			      .call(yAxisLeft)
+			      .append("text")
+		            .attr("transform", "rotate(-90)")
+		            .attr("y", 6)
+		            .attr("dy", ".71em")
+		            .style("text-anchor", "end")
+		            .text("Temps (s)");
 			graph1.append("svg:path").attr("class","chart").attr("d", line1(data1));
 			
 		})

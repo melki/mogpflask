@@ -25,7 +25,7 @@
      		</div>
    		</div>
     	<div class="row">
-     		<div class="docs-section" style="margin-top: 10%">
+     		<div class="docs-section" style="margin-top: 10%, margin-bottom: 10%">
     			<div class="four columns">
 					<h2>List of Grids</h2>
 					<p>Click on one set to resolve it, or if you want, you can create more grids</p>
@@ -57,8 +57,11 @@
 				    <button id="delete">Delete all</button>
 					</br>
 					<h2>Generate Grids</h2>
-					<p>If you chose min = 10, max = 50 and number of grids = 5 it will generate 5 grids 10*10, 5 grids 20*20 etc... </p>
-					<p>Same concept with the obstacles.</p>
+					<p>Pour générer de nouvelles grilles : </br>
+- Choisir un nombre de lignes minimum et maximum, si les deux valeurs sont égales à N alors on génerera seulement des grilles N*N avec le nombre minimum d'obstacles.</br>
+- Si les deux valeurs sont differentes alors on va générer X grilles toutes les 10 valeurs du minimum au maximum, X étant le nombre de grilles choisis dans la dernière case.</br>
+- Chacune de ces grilles aura un nombre d'obstacles fixe si les valeurs minimum et maximum sont égales</br>
+- Si le minimum et le maximum sont différent alors le nombre d'obstacle augmentera de maxO-minO/((maxL - minL)/10) à chaque itération</p>
     				<form action="{{ url_for('generate') }}" method="POST" >
 				    	<label for="rows">Numbers of Rows &amp; Collumns (Min, Max) : </label>
 				    	<input type="number" name="rowsMin" value="10" size="20">
@@ -79,7 +82,7 @@
 				    <div id="graph"></div>
 				    <h4>Temps en fonction du nombre d'obstacle pour une grille à 20 lignes</h4>
 				    <p>à partir des logs accessibles <a href="static/logs.csv">ici</a> </p>
-				    <div id="graph1"></div>
+				    <div id="graph1" style="margin-bottom: 10%"></div>
 
 					</div>
 
